@@ -12,34 +12,45 @@ class Ingredients_model extends Base_model {
 
     public function load() {
        $output = array();
-       //var_dump($_POST['recipes']);
-       //$recipes = json_decode($_POST['recipes'], true);
-       //var_dump($recipes);
-       //die($_POST['ingredients']);
        $this->data = $this->parse_csv($_POST['ingredients']);
-       //$output['recipes'] = $recipes;
-       //$output['ingredients'] = $ingredients;
-       
-       //var_dump($recipes);
-       //var_dump($ingredients);
-        //print_r($output);
-       //die();
-      
        return $this->data;
     }
     
     public function parse_csv($str) {
         $array = array();
-        $lines = explode(PHP_EOL, $str);
+        $lines = explode(PHP_EOL, trim($str));
         foreach ($lines as $line) {
-            //echo $line . "\n";
             $array[] = str_getcsv($line);  
         }
-        //var_dump($array);
-        //die();
         return $array; 
     }
-
-
+    
+    public function expired($item) {
+        //$date = strtotime(trim($item[3]));
+        // trim($item[3]
+        $date_obj = DateTime::createFromFormat('j/n/Y', trim($item[3]));
+        //$date_obj = DateTime::createFromFormat('j-M-Y', '15-Feb-2009');
+        $date = $date_obj->getTimestamp();
+        $now = strtotime("now");
+        //echo "<div>expired: {$item[0]} | {$item[3]} | $date | $now </div>";
+        if ($date <= $now) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function delete_expired() {
+        $test = $this->data;
+        $i = 0;
+        foreach ($test as $item) {
+           if ($this->expired($item)) {
+               //echo "<div>{$item[0]} is expired!</div>";
+               unset($this->data[$i]);
+               $this->data = array_values($this->data);
+           }
+           $i++;
+        }   
+    }
 }
 

@@ -28,6 +28,42 @@ class Recipe_model extends Base_model {
        return $this->data;
     }
     
+    public function set_viable_recipes($ingredients) {
+       $recipes = $this->data;
+       $i = 0;
+        foreach ($recipes as $recipe) {
+            if (!$this->recipe_instock($recipe,$ingredients)) {
+               unset($this->data[$i]);
+               $this->data = array_values($this->data);
+            }
+            $i++;
+        }
+    }
+        
+    public function recipe_instock($recipe,$ingredients) {
+            $recipe_ingredients =  $recipe['ingredients'];
+            foreach ($recipe_ingredients as $ingredient) {
+                if (!$this->ingredient_instock($ingredient,$ingredients)) {
+                    return false;
+                }
+            }
+            return true;
+    }
+    
+    public function ingredient_instock($ingredient,$ingredients) {
+        $name = $ingredient['item'];
+        
+        foreach ($ingredients as $pantry_ingredient) {
+            if ($pantry_ingredient[0] == $name && $pantry_ingredient[2] == $ingredient['unit'] && $pantry_ingredient[1] >= $ingredient['amount']) {
+                return true;  
+            }
+        }
+        //echo "<div>$name is out of stock!</div>";
+        return false;
+    }
+        
+    
+    
 
 }
 

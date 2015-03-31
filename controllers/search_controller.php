@@ -13,16 +13,20 @@ class Search_controller extends Base_controller {
     public function index() {
         $this->layout = 'main';
         $this->view = 'search';
-        //die('BOOM');
         $this->recipe_model->load();
         $this->ingredients_model->load();
         
+        $this->ingredients_model->delete_expired();
+        $this->recipe_model->set_viable_recipes($this->ingredients_model->data);
+        
+ 
         print_r($this->recipe_model->data);
+       
+        
+        
         print_r($this->ingredients_model->data);
-        //var_dump($data);
-        die();
-        //$data = array();
-        //$this->render_view($data);
+        
+        //die();
     }
 
 }

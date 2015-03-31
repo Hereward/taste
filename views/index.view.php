@@ -21,7 +21,7 @@
             },
             {
                 "item": "cheese",
-                "amount": "2",
+                "amount": "20",
                 "unit": "slices"
             }
         ]
@@ -48,13 +48,13 @@
   </div>
      
         <div class="form-group">
-            <label for="ingredients">Ingredients JSON</label>
+            <label for="ingredients">Ingredients CSV</label>
             <textarea name="ingredients" id="ingredients" class="form-control" rows="10">
-bread,10,slices,25/12/2014
-cheese,10,slices,25/12/2014
-butter,250,grams,25/12/2014
-peanut butter,250,grams,2/12/2014
-mixed salad,500,grams,26/12/2013
+bread,10,slices,25/12/2015
+cheese,10,slices,25/12/2015
+butter,250,grams,25/12/2015
+peanut butter,250,grams,2/12/2013
+mixed salad,500,grams,26/12/2015
             </textarea>
         </div>
         
