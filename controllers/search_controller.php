@@ -1,15 +1,25 @@
 <?php
 
+/*
+   @package		Recipe Builder
+ * @author		Hereward Fenton
+ * @copyright	Copyright (c) 2015, Eye of the Tiger Pty Ltd.
+ */
+
 class Search_controller extends Base_controller {
 
     public $vars, $url_params, $view, $layout, $recipe_model, $ingredients_model;
 
     public function __construct($vars) {
         $this->vars = $vars;
-        $this->recipe_model = new Recipe_model($vars);
-        $this->ingredients_model = new Ingredients_model($vars);
+        $this->recipe_model = new Recipe_model();
+        $this->ingredients_model = new Ingredients_model();
     }
-
+    
+    /* Search Controller 
+     * This is the main app controller which loads the models outpus the search results.
+     */
+    
     public function index() {
         $this->layout = 'main';
         $this->view = 'search';
@@ -22,13 +32,6 @@ class Search_controller extends Base_controller {
         
         $freshest = $this->recipe_model->find_freshest();
         
-        //$title = $freshest['name'];
-        
- 
-        //print_r($this->recipe_model->data);
-        //die($title);
-        
-        //print_r($this->ingredients_model->data);
         $data = array('ingredients_messages'=>$this->ingredients_model->messages, 'recipe_messages'=>$this->recipe_model->messages, 'recommendation' => $freshest['name']);
         $this->render_view($data);
         //die();

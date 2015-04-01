@@ -1,5 +1,15 @@
 <?php
 
+/*
+   @package		Recipe Builder
+ * @author		Hereward Fenton
+ * @copyright	Copyright (c) 2015, Eye of the Tiger Pty Ltd.
+ */
+
+  /* Ingredients Model 
+     * This model represents the ingredients data which is loaded from the CSV data.
+  */
+
 class Ingredients_model {
 
     public $view;
@@ -12,7 +22,6 @@ class Ingredients_model {
 
       
     }
-
 
     public function load() {
        $output = array();
@@ -29,14 +38,12 @@ class Ingredients_model {
         return $array; 
     }
     
+    // Functions below identify and remove expired items from the ingredients inventory
+    
     public function expired($item) {
-        //$date = strtotime(trim($item[3]));
-        // trim($item[3]
         $date_obj = DateTime::createFromFormat('j/n/Y', trim($item[3]));
-        //$date_obj = DateTime::createFromFormat('j-M-Y', '15-Feb-2009');
         $date = $date_obj->getTimestamp();
         $now = strtotime("now");
-        //echo "<div>expired: {$item[0]} | {$item[3]} | $date | $now </div>";
         if ($date <= $now) {
             return true;
         } else {
@@ -50,7 +57,6 @@ class Ingredients_model {
         foreach ($test as $item) {
            if ($this->expired($item)) {
                $this->messages[] = "{$item[0]} is expired - removing from inventory!";
-               
                unset($this->data[$i]);
                $this->data = array_values($this->data);
            }

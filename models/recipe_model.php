@@ -1,5 +1,15 @@
 <?php
 
+/*
+   @package		Recipe Builder
+ * @author		Hereward Fenton
+ * @copyright	Copyright (c) 2015, Eye of the Tiger Pty Ltd.
+ */
+
+  /* Recipe Model 
+     * This model represents the recipe data which is loaded from the JSON data.
+  */
+
 class Recipe_model extends Base_model {
 
     public $url_params;
@@ -15,21 +25,12 @@ class Recipe_model extends Base_model {
 
     public function load() {
         $output = array();
-        //var_dump($_POST['recipes']);
         $this->data = json_decode($_POST['recipes'], true);
-        //var_dump($recipes);
-        //die($_POST['ingredients']);
-        //$ingredients = $this->parse_csv($_POST['ingredients']);
-        //$output['recipes'] = $recipes;
-        //$output['ingredients'] = $ingredients;
-        //var_dump($recipes);
-        //var_dump($ingredients);
-        //print_r($output);
-        //die();
-
         return $this->data;
     }
-
+    
+    // Functions below are concerned with matching ingredients with recipes, to return a list of viable recipes
+     
     public function set_viable_recipes($ingredients) {
         $recipes = $this->data;
         $i = 0;
@@ -65,6 +66,9 @@ class Recipe_model extends Base_model {
         $this->messages[] = "$name - insufficient stock!";
         return false;
     }
+    
+    
+    // Functions below are concerned determining the priority of meals based on the freshness of ingredients
 
     public function set_longevity($ingredients) {
         $recipes = $this->data;
@@ -81,15 +85,12 @@ class Recipe_model extends Base_model {
         foreach ($recipe_ingredients as $ingredient) {
             $name = $ingredient['item'];
             $days_left = $this->get_longevity($ingredient, $ingredients);
-            //echo "$name | $days_left | \n";
             $days[] = array($name => $days_left);
         }
 
         $mean = $this->mean($days);
         return $mean;
 
-        //print_r($days);
-        //die();
     }
 
     public function get_longevity($ingredient, $ingredients) {
@@ -108,7 +109,6 @@ class Recipe_model extends Base_model {
                 return $days;
             }
         }
-        //$this->messages[] = "$name - insufficient stock!";
         return false;
     }
 
@@ -117,7 +117,6 @@ class Recipe_model extends Base_model {
         $tot = 0;
         foreach ($days as $item) {
             foreach ($item as $key => $value) {
-                //echo "$value | ";
                 $tot += $value;
             }
         }
@@ -126,11 +125,7 @@ class Recipe_model extends Base_model {
     }
 
     public function find_freshest() {
-        //arsort($age);
         $recipes = array();
-        
-        //print_r($this->data);
-        //die();
         $i = 0;
         $small_array = array();
         
@@ -141,16 +136,8 @@ class Recipe_model extends Base_model {
             $i++;
         }
         arsort($small_array);
-        
         $key = current(array_keys($small_array));
-        
         return $recipes[$key];
-        
-        
-        //print_r($recipes);
-        //print_r($small_array);
-        
-        //die();
     }
 
 }
