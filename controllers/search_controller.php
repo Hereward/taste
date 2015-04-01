@@ -18,14 +18,19 @@ class Search_controller extends Base_controller {
         
         $this->ingredients_model->delete_expired();
         $this->recipe_model->set_viable_recipes($this->ingredients_model->data);
+        $this->recipe_model->set_longevity($this->ingredients_model->data);
+        
+        $freshest = $this->recipe_model->find_freshest();
+        
+        //$title = $freshest['name'];
         
  
-        print_r($this->recipe_model->data);
-       
+        //print_r($this->recipe_model->data);
+        //die($title);
         
-        
-        print_r($this->ingredients_model->data);
-        
+        //print_r($this->ingredients_model->data);
+        $data = array('ingredients_messages'=>$this->ingredients_model->messages, 'recipe_messages'=>$this->recipe_model->messages, 'recommendation' => $freshest['name']);
+        $this->render_view($data);
         //die();
     }
 

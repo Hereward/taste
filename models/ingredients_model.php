@@ -2,10 +2,14 @@
 
 class Ingredients_model extends Base_model {
 
-    public $vars, $url_params, $view, $layout, $keyword, $page, $data;
+    public $view;
+    public $layout;
+    public $page;
+    public $data;
+    public $messages = array();
 
     public function __construct() {
-       // $this->vars = $vars;
+
       
     }
 
@@ -45,7 +49,8 @@ class Ingredients_model extends Base_model {
         $i = 0;
         foreach ($test as $item) {
            if ($this->expired($item)) {
-               //echo "<div>{$item[0]} is expired!</div>";
+               $this->messages[] = "{$item[0]} is expired - removing from inventory!";
+               
                unset($this->data[$i]);
                $this->data = array_values($this->data);
            }
