@@ -1,6 +1,6 @@
 <?php
 
-class Ingredients_model extends Base_model {
+class Ingredients_model {
 
     public $view;
     public $layout;
