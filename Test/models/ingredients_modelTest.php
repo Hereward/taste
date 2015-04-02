@@ -1,12 +1,12 @@
 <?php
-
+require_once(__DIR__ . "../../../models/base_model.php");
 require_once(__DIR__ . "../../../models/ingredients_model.php");
 
 class ingredients_modelTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider providerTestparse_csv_returns_array 
-     * @param string $originalString String to be sluggified
-     * @param string $expectedResult What we expect our slug result to be
+     * @param string $originalString csv string to be parsed
+     * @param string $expectedResult resulting array 
      */
 
     public function testparse_csv_returns_array($originalString, $expectedResult) {
