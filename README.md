@@ -24,6 +24,8 @@ Basic logic flow:
 4. Determine the relative "freshness" of each potential recipe by comparing the "longevity" of the ingredients in each recipe, then sorting this list in descending order.
 5. The first recipe in the sorted list from (5) becomes the recommended meal. 
 
+The search page will display a list of "system messages" which tell you a little about what the app is doing.
+
 Copyright Eye of the Tiger - All rights reserved.
 
 
