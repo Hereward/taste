@@ -5,12 +5,9 @@ http://taste.planetonline.com.au
 
 Work is 100% my own and is built on a lightweight MVC framework which is also my own creation.
 
-There are 2 models:
-Recipe_model
-Ingredients_model
+There are 2 models: Recipe_model & Ingredients_model
 
-There is one main Controller:
-Search_controller
+There is one main Controller: Search_controller
 
 I have provided some phpUnit tests in the Test folder. The tests do not provide 100% coverage - I don't have the time to develop a full test suite.
 
