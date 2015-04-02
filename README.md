@@ -23,7 +23,7 @@ Basic logic flow:
 
 The search page will display a list of "system messages" which tell you a little about what the app is doing.
 
-Copyright Eye of the Tiger - All rights reserved.
+Copyright Eye of the Tiger Pty Ltd. - All rights reserved.
 
 
 
