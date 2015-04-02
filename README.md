@@ -1,6 +1,6 @@
 Recipe Builder Notes
 
-Code has been deployed and can be accessed here:
+Website has been deployed and can be accessed here:
 http://taste.planetonline.com.au
 
 Work is 100% my own and is built on a lightweight MVC framework which is also my own creation.
