@@ -25,15 +25,17 @@ class Search_controller extends Base_controller {
         $this->view = 'search';
         $this->recipe_model->load();
         $this->ingredients_model->load();
-
+        
         $this->ingredients_model->delete_expired();
         $this->recipe_model->set_viable_recipes($this->ingredients_model->data);
+        
 
-        if (count($this->recipe_model->data) > 1) {
+        if (count($this->recipe_model->data) > 0) {
             $this->recipe_model->set_longevity($this->ingredients_model->data);
             $freshest = $this->recipe_model->find_freshest();
             $data = array('ingredients_messages' => $this->ingredients_model->messages, 'recipe_messages' => $this->recipe_model->messages, 'recommendation' => $freshest['name']);
         } else {
+  
             $data = array('ingredients_messages' => $this->ingredients_model->messages, 'recipe_messages' => $this->recipe_model->messages, 'recommendation' =>  "Nothing: everything is out of stock!");
         }
         $this->render_view($data);

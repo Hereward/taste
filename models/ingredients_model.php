@@ -58,10 +58,10 @@ class Ingredients_model {
            if ($this->expired($item)) {
                $this->messages[] = "{$item[0]} is expired - removing from inventory!";
                unset($this->data[$i]);
-               $this->data = array_values($this->data);
            }
            $i++;
         }   
+        $this->data = array_values($this->data);
     }
 }
 

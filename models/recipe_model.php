@@ -34,18 +34,28 @@ class Recipe_model extends Base_model {
     public function set_viable_recipes($ingredients) {
         $recipes = $this->data;
         $i = 0;
+        $unset_list = array();
+
+        
         foreach ($recipes as $recipe) {
             if (!$this->recipe_instock($recipe, $ingredients)) {
+
                 $this->messages[] = "Removing &laquo;{$recipe['name']}&raquo; from inventory!";
-                unset($this->data[$i]);
+                $unset_list[] = $i;
             }
             $i++;
         }
+        
+        foreach ($unset_list as $item) {
+            unset($this->data[$item]);
+        }
         $this->data = array_values($this->data);
+      
     }
 
     public function recipe_instock($recipe, $ingredients) {
         $recipe_ingredients = $recipe['ingredients'];
+      
         foreach ($recipe_ingredients as $ingredient) {
             if (!$this->ingredient_instock($ingredient, $ingredients)) {
                 return false;
@@ -56,12 +66,17 @@ class Recipe_model extends Base_model {
 
     public function ingredient_instock($ingredient, $ingredients) {
         $name = $ingredient['item'];
-
+        $track = 0;
+       
         foreach ($ingredients as $pantry_ingredient) {
+ 
             if ($pantry_ingredient[0] == $name && $pantry_ingredient[2] == $ingredient['unit'] && $pantry_ingredient[1] >= $ingredient['amount']) {
                 return true;
+            }else {
+                
             }
         }
+     
         $this->messages[] = "$name - insufficient stock!";
         return false;
     }
