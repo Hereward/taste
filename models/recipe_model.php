@@ -36,13 +36,12 @@ class Recipe_model extends Base_model {
         $i = 0;
         foreach ($recipes as $recipe) {
             if (!$this->recipe_instock($recipe, $ingredients)) {
-
                 $this->messages[] = "Removing &laquo;{$recipe['name']}&raquo; from inventory!";
                 unset($this->data[$i]);
-                $this->data = array_values($this->data);
             }
             $i++;
         }
+        $this->data = array_values($this->data);
     }
 
     public function recipe_instock($recipe, $ingredients) {

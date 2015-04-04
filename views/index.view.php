@@ -50,7 +50,7 @@
         <div class="form-group">
             <label for="ingredients">Ingredients CSV</label>
             <textarea name="ingredients" id="ingredients" class="form-control" rows="10">
-bread,10,slices,3/4/2015
+bread,10,slices,3/4/2016
 cheese,10,slices,25/12/2015
 butter,250,grams,25/12/2015
 peanut butter,250,grams,2/12/2013
